@@ -187,6 +187,12 @@ API Changes
   MergePolicy.OneMergeProgress, MergeScheduler.wrapForMerge and 
   OneMerge.mergeInit). (Dawid Weiss, Mike McCandless).
 
+* LUCENE-8635: FSTs can now remain off-heap, accessed via
+  IndexInput, and the default codec's term dictionary
+  (BlockTreeTermsReader) will now leave the FST for the terms index
+  off-heap for non-primary-key fields using MMapDirectory, reducing
+  heap usage for such fields. (Ankit Jain)
+
 New Features
 
 * LUCENE-7738: Add new InetAddressRange for indexing and querying InetAddress
