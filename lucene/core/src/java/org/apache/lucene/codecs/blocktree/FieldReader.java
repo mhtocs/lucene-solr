@@ -90,10 +90,12 @@ public final class FieldReader extends Terms implements Accountable {
       final IndexInput clone = indexIn.clone();
       clone.seek(indexStartFP);
       // Initialize FST offheap if index is MMapDirectory and
-      // docCount != sumDocFreq implying field is not primary key
-      if (clone instanceof ByteBufferIndexInput && this.docCount != this.sumDocFreq) {
+      boolean isMMap = clone instanceof ByteBufferIndexInput;
+      if(isMMap) {
+      //  System.out.println("OFFHEAP");
         index = new FST<>(clone, ByteSequenceOutputs.getSingleton(), new OffHeapFSTStore());
       } else {
+        //  System.out.println("SIGNLETON!!!!");
         index = new FST<>(clone, ByteSequenceOutputs.getSingleton());
       }
         
